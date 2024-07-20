@@ -1,0 +1,6 @@
+C:\Users\rdacosta\Documents\Proyectos Mari\Prog_Avanzada - [C#] Cliente - Servidor\Entidades\Entidades\bin\Debug\Entidades.dll
+C:\Users\rdacosta\Documents\Proyectos Mari\Prog_Avanzada - [C#] Cliente - Servidor\Entidades\Entidades\bin\Debug\Entidades.pdb
+C:\Users\rdacosta\Documents\Proyectos Mari\Prog_Avanzada - [C#] Cliente - Servidor\Entidades\Entidades\obj\Debug\Entidades.csproj.AssemblyReference.cache
+C:\Users\rdacosta\Documents\Proyectos Mari\Prog_Avanzada - [C#] Cliente - Servidor\Entidades\Entidades\obj\Debug\Entidades.csproj.CoreCompileInputs.cache
+C:\Users\rdacosta\Documents\Proyectos Mari\Prog_Avanzada - [C#] Cliente - Servidor\Entidades\Entidades\obj\Debug\Entidades.dll
+C:\Users\rdacosta\Documents\Proyectos Mari\Prog_Avanzada - [C#] Cliente - Servidor\Entidades\Entidades\obj\Debug\Entidades.pdb

@@ -1,0 +1,17 @@
+C:\Users\rdacosta\source\repos\Servidor\LogicaNegocio\bin\Debug\LogicaNegocio.dll
+C:\Users\rdacosta\source\repos\Servidor\LogicaNegocio\bin\Debug\LogicaNegocio.pdb
+C:\Users\rdacosta\source\repos\Servidor\LogicaNegocio\obj\Debug\LogicaNegocio.csproj.AssemblyReference.cache
+C:\Users\rdacosta\source\repos\Servidor\LogicaNegocio\obj\Debug\LogicaNegocio.csproj.CoreCompileInputs.cache
+C:\Users\rdacosta\source\repos\Servidor\LogicaNegocio\obj\Debug\LogicaNegocio.dll
+C:\Users\rdacosta\source\repos\Servidor\LogicaNegocio\obj\Debug\LogicaNegocio.pdb
+C:\Users\rdacosta\Documents\Proyectos Mari\Prog_Avanzada - [C#] Cliente - Servidor\Servidor\LogicaNegocio\bin\Debug\LogicaNegocio.dll
+C:\Users\rdacosta\Documents\Proyectos Mari\Prog_Avanzada - [C#] Cliente - Servidor\Servidor\LogicaNegocio\bin\Debug\LogicaNegocio.pdb
+C:\Users\rdacosta\Documents\Proyectos Mari\Prog_Avanzada - [C#] Cliente - Servidor\Servidor\LogicaNegocio\bin\Debug\AccesoDatos.dll
+C:\Users\rdacosta\Documents\Proyectos Mari\Prog_Avanzada - [C#] Cliente - Servidor\Servidor\LogicaNegocio\bin\Debug\Entidades.dll
+C:\Users\rdacosta\Documents\Proyectos Mari\Prog_Avanzada - [C#] Cliente - Servidor\Servidor\LogicaNegocio\bin\Debug\AccesoDatos.pdb
+C:\Users\rdacosta\Documents\Proyectos Mari\Prog_Avanzada - [C#] Cliente - Servidor\Servidor\LogicaNegocio\bin\Debug\Entidades.pdb
+C:\Users\rdacosta\Documents\Proyectos Mari\Prog_Avanzada - [C#] Cliente - Servidor\Servidor\LogicaNegocio\obj\Debug\LogicaNegocio.csproj.AssemblyReference.cache
+C:\Users\rdacosta\Documents\Proyectos Mari\Prog_Avanzada - [C#] Cliente - Servidor\Servidor\LogicaNegocio\obj\Debug\LogicaNegocio.csproj.CoreCompileInputs.cache
+C:\Users\rdacosta\Documents\Proyectos Mari\Prog_Avanzada - [C#] Cliente - Servidor\Servidor\LogicaNegocio\obj\Debug\LogicaNe.53575492.Up2Date
+C:\Users\rdacosta\Documents\Proyectos Mari\Prog_Avanzada - [C#] Cliente - Servidor\Servidor\LogicaNegocio\obj\Debug\LogicaNegocio.dll
+C:\Users\rdacosta\Documents\Proyectos Mari\Prog_Avanzada - [C#] Cliente - Servidor\Servidor\LogicaNegocio\obj\Debug\LogicaNegocio.pdb
