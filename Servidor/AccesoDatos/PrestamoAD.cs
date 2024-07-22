@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -13,9 +12,10 @@ namespace AccesoDatos
     public class PrestamoAD
     {
         private string cadenaConexion;
+
         public PrestamoAD()
         {
-            //Se obtiene la cadena de conexión del app config del proyecto de interfaz
+            // Se obtiene la cadena de conexión del app config del proyecto de interfaz
             cadenaConexion = ConfigurationManager.ConnectionStrings["conexionBiblioteca"].ConnectionString;
         }
 
@@ -30,8 +30,8 @@ namespace AccesoDatos
                 command.Parameters.AddWithValue("@IdCliente", pprestamo.IdCliente);
                 command.Parameters.AddWithValue("@IdSucursal", pprestamo.IdSucursal);
                 command.Parameters.AddWithValue("@IdPelicula", pprestamo.IdPelicula);
-                command.Parameters.AddWithValue("@Devolucion", pprestamo.FechaPrestamo);
-                command.Parameters.AddWithValue("@FechaPrestamo", pprestamo.Devolucion);
+                command.Parameters.AddWithValue("@FechaPrestamo", pprestamo.FechaPrestamo);
+                command.Parameters.AddWithValue("@PendienteDevolucion", pprestamo.Devolucion);
 
                 try
                 {
@@ -46,10 +46,9 @@ namespace AccesoDatos
                     return false;
                 }
             }
-
         }
 
-        public DataTable ObtenerPrestamosPorCliente(int idCliente)
+        public List<Prestamo> ObtenerPrestamosPorCliente(int idCliente)
         {
             string query = @"
                 SELECT 
@@ -64,14 +63,31 @@ namespace AccesoDatos
                 WHERE 
                     IdCliente = @IdCliente;";
 
+            List<Prestamo> prestamos = new List<Prestamo>();
+
             using (SqlConnection connection = new SqlConnection(cadenaConexion))
             {
-                SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
-                adapter.SelectCommand.Parameters.AddWithValue("@IdCliente", idCliente);
-                DataTable dataTable = new DataTable();
-                adapter.Fill(dataTable);
-                return dataTable;
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@IdCliente", idCliente);
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    Prestamo prestamo = new Prestamo
+                    {
+                        IdPrestamo = reader.GetInt32(reader.GetOrdinal("IdPrestamo")),
+                        IdCliente = reader.GetInt32(reader.GetOrdinal("IdCliente")),
+                        IdSucursal = reader.GetInt32(reader.GetOrdinal("IdSucursal")),
+                        IdPelicula = reader.GetInt32(reader.GetOrdinal("IdPelicula")),
+                        FechaPrestamo = reader.GetDateTime(reader.GetOrdinal("FechaPrestamo")),
+                        Devolucion = reader.GetBoolean(reader.GetOrdinal("PendienteDevolucion"))
+                    };
+                    prestamos.Add(prestamo);
+                }
+                reader.Close();
             }
+
+            return prestamos;
         }
 
         public void ActualizarCantidadPelicula(int idSucursal, int idPelicula, int cantidad)
@@ -95,7 +111,5 @@ namespace AccesoDatos
                 command.ExecuteNonQuery();
             }
         }
-
-
     }
 }

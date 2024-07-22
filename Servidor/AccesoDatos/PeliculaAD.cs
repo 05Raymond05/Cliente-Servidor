@@ -21,7 +21,7 @@ namespace AccesoDatos
             //Se obtiene la cadena de conexión del app config del proyecto de interfaz
             cadenaConexion = ConfigurationManager.ConnectionStrings["conexionBiblioteca"].ConnectionString;
         }
-        public void AgregarPelicula(Pelicula ppelicula)
+        public bool AgregarPelicula(Pelicula ppelicula)
         {
             SqlConnection conexion;
             SqlCommand comando = new SqlCommand();
@@ -44,12 +44,14 @@ namespace AccesoDatos
 
             conexion.Open();
 
-            comando.ExecuteNonQuery();
+            int result = comando.ExecuteNonQuery();
 
             conexion.Close();
+
+            return result > 0;
         }
 
-        public List<Pelicula> ObetnerPeliculas()
+        public List<Pelicula> ObtenerPeliculas()
         {
             string query = @"
         SELECT 
@@ -92,32 +94,6 @@ namespace AccesoDatos
             return listaPeliculas;
         }
 
-        public DataTable ObetnerPeliculas2()
-        {
-            string query = @"
-                SELECT 
-                    Pelicula.IdPelicula, 
-                    Pelicula.Titulo, 
-                    Pelicula.AnioLanzamiento, 
-                    Pelicula.Idioma, 
-                    CategoriaPelicula.NombreCategoria AS CategoriaPelicula
-                FROM 
-                    Pelicula
-                INNER JOIN 
-                    CategoriaPelicula ON Pelicula.IdCategoria = CategoriaPelicula.IdCategoria
-                ORDER BY 
-                    Pelicula.IdPelicula;";
-
-            using (SqlConnection connection = new SqlConnection(cadenaConexion))
-            {
-                SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
-                DataTable dataTable = new DataTable();
-                adapter.Fill(dataTable);
-                return dataTable;
-            }
         }
-
-
-
-    }
 }
+

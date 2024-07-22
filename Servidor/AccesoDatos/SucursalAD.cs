@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,10 +15,9 @@ namespace AccesoDatos
 
         public SucursalAD()
         {
-            //Se obtiene la cadena de conexión del app config del proyecto de interfaz
+            // Se obtiene la cadena de conexión del app config del proyecto de interfaz
             cadenaConexion = ConfigurationManager.ConnectionStrings["conexionBiblioteca"].ConnectionString;
         }
-
 
         public bool AddSucursal(Sucursal sucursal)
         {
@@ -51,9 +49,8 @@ namespace AccesoDatos
                 }
             }
         }
-         
 
-        public DataTable ObtenerSucursales()
+        public List<Sucursal> ObtenerSucursales()
         {
             string query = @"
                 SELECT 
@@ -71,13 +68,33 @@ namespace AccesoDatos
                     Sucursal.IdSucursal;
             ";
 
+            List<Sucursal> listaSucursales = new List<Sucursal>();
+
             using (SqlConnection connection = new SqlConnection(cadenaConexion))
             {
-                SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
-                DataTable dataTable = new DataTable();
-                adapter.Fill(dataTable);
-                return dataTable;
+                connection.Open();
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Sucursal sucursal = new Sucursal
+                            {
+                                IdSucursal = reader.GetInt32(reader.GetOrdinal("IdSucursal")),
+                                Nombre = reader.GetString(reader.GetOrdinal("NombreSucursal")),
+                                Direccion = reader.GetString(reader.GetOrdinal("Direccion")),
+                                Telefono = reader.GetString(reader.GetOrdinal("Telefono")),
+                                Activo = reader.GetBoolean(reader.GetOrdinal("SucursalActiva")),
+                                Encargado = new Encargado { Identificacion = reader.GetInt32(reader.GetOrdinal("IdEncargado")).ToString() }
+                            };
+                            listaSucursales.Add(sucursal);
+                        }
+                    }
+                }
             }
+            return listaSucursales;
         }
     }
 }
+

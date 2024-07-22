@@ -57,7 +57,7 @@
             // 
             // Boton_Agregar_Cliente
             // 
-            this.Boton_Agregar_Cliente.Location = new System.Drawing.Point(372, 448);
+            this.Boton_Agregar_Cliente.Location = new System.Drawing.Point(369, 425);
             this.Boton_Agregar_Cliente.Name = "Boton_Agregar_Cliente";
             this.Boton_Agregar_Cliente.Size = new System.Drawing.Size(184, 43);
             this.Boton_Agregar_Cliente.TabIndex = 18;

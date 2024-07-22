@@ -1,12 +1,7 @@
 ﻿using Entidades;
-using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AccesoDatos
 {
@@ -16,22 +11,21 @@ namespace AccesoDatos
 
         public PeliculaxSucursalAD()
         {
-            //Se obtiene la cadena de conexión del app config del proyecto de interfaz
+            // Se obtiene la cadena de conexión del app config del proyecto de interfaz
             cadenaConexion = ConfigurationManager.ConnectionStrings["conexionBiblioteca"].ConnectionString;
         }
-        public void AgregarPeliculaxSucursal(PeliculaxSucursal ppeliculasucursal)
+
+        public bool AgregarPeliculaxSucursal(PeliculaxSucursal ppeliculasucursal)
         {
             SqlConnection conexion;
             SqlCommand comando = new SqlCommand();
             string sentencia;
 
-
-
             conexion = new SqlConnection(cadenaConexion);
-            sentencia = " Insert	Into	PeliculaxSucursal (IdSucursal, IdPelicula, Cantidad)" +
-                        " Values (@param1,	@param2, @param3)";
+            sentencia = "INSERT INTO PeliculaxSucursal (IdSucursal, IdPelicula, Cantidad)" +
+                        " VALUES (@param1, @param2, @param3)";
 
-            comando.CommandType = CommandType.Text;
+            comando.CommandType = System.Data.CommandType.Text;
             comando.CommandText = sentencia;
             comando.Connection = conexion;
             comando.Parameters.AddWithValue("@param1", ppeliculasucursal.Pelicula.IdPelicula);
@@ -40,12 +34,14 @@ namespace AccesoDatos
 
             conexion.Open();
 
-            comando.ExecuteNonQuery();
+            int result = comando.ExecuteNonQuery();
 
             conexion.Close();
+
+            return result > 0;
         }
 
-        public DataTable ObtenerPeliculaxSucursal()
+        public List<PeliculaxSucursal> ObtenerPeliculaxSucursal()
         {
             string query = @"
                 SELECT 
@@ -57,7 +53,7 @@ namespace AccesoDatos
                     Encargado.Identificacion AS IdEncargado, 
                     Pelicula.IdPelicula, 
                     Pelicula.Titulo, 
-                    Pelicula.AnioLanzamiento, 
+                    Pelicula.AnoLanzamiento, 
                     Pelicula.Idioma, 
                     PeliculaxSucursal.Cantidad,
                     CategoriaPelicula.NombreCategoria AS CategoriaPelicula
@@ -75,13 +71,46 @@ namespace AccesoDatos
                     Sucursal.IdSucursal, Pelicula.IdPelicula;
             ";
 
+            List<PeliculaxSucursal> listaPeliculaxSucursal = new List<PeliculaxSucursal>();
+
             using (SqlConnection connection = new SqlConnection(cadenaConexion))
             {
-                SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
-                DataTable dataTable = new DataTable();
-                adapter.Fill(dataTable);
-                return dataTable;
+                SqlCommand command = new SqlCommand(query, connection);
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    PeliculaxSucursal peliculaxSucursal = new PeliculaxSucursal
+                    {
+                        Sucursal = new Sucursal
+                        {
+                            IdSucursal = reader.GetInt32(reader.GetOrdinal("IdSucursal")),
+                            Nombre = reader.GetString(reader.GetOrdinal("NombreSucursal")),
+                            Direccion = reader.GetString(reader.GetOrdinal("Direccion")),
+                            Telefono = reader.GetString(reader.GetOrdinal("Telefono")),
+                            Activo = reader.GetBoolean(reader.GetOrdinal("SucursalActiva")),
+                            Encargado = new Encargado
+                            {
+                                IdEncargado = reader.GetInt32(reader.GetOrdinal("IdEncargado"))
+                            }
+                        },
+                        Pelicula = new Pelicula
+                        {
+                            IdPelicula = reader.GetInt32(reader.GetOrdinal("IdPelicula")),
+                            Titulo = reader.GetString(reader.GetOrdinal("Titulo")),
+                            AnoLanzamiento = reader.GetInt32(reader.GetOrdinal("AnoLanzamiento")),
+                            Idioma = reader.GetString(reader.GetOrdinal("Idioma")),
+                            Nombre = reader.GetString(reader.GetOrdinal("CategoriaPelicula"))
+                        },
+                        Cantidad = reader.GetInt32(reader.GetOrdinal("Cantidad"))
+                    };
+                    listaPeliculaxSucursal.Add(peliculaxSucursal);
+                }
+                reader.Close();
             }
+
+            return listaPeliculaxSucursal;
         }
     }
 }
+

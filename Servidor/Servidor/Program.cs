@@ -1,11 +1,16 @@
-﻿using System;
+﻿    using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Entidades;
 
+/* UNED II Cuatrimestre
+ * Proyecto 2: Videoteca UNED Cliente-Servidor
+ * Estudiante: Maria Paula Rojas Washington
+ * Fecha: 21/07/24
 
+*/
 namespace Servidor
 {
     internal static class Program

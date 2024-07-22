@@ -18,10 +18,9 @@ namespace LogicaNegocio
             return servicio_datos.AgregarCategoria(categoria_nueva);
         }
 
-        /*
-        public Categoria[] Consultar()
+        public List <Categoria>  ObtenerCategorias()
         {
-            return ListaCategorias;
-        }*/
+            return servicio_datos.ObtenerCategorias();
+        }
     }
 }
